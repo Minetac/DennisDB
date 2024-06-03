@@ -1,0 +1,5 @@
+Table: Kunden
+|id, nachname, vorname, mail, alter, adresse, brutto-monatsgehalt
+|1, 'Stoermer', 'Dennis', 'de.stoermer@web.de', 23, '37247 Grossalmerode', 2400.00
+|2, 'Stoermer', 'Jan', 'jan.stoermer@web.de', 23, '37247 Grossalmerode', 4000.00
+|3, 'Muehlausen', 'Lucas', 'lucas.muehlhausen@gmx.de', 24, '37247 Grossalmerode', 3500.00
