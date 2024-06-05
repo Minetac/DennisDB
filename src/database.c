@@ -24,11 +24,13 @@ Database init_database(int input_id, char input_name[50]) {
     return db;
 }
 
-void initialize_table(Table *table, char input_name[50]) {
+Table *initialize_table(Database *db, char input_name[50]) {
+    Table *table = db->tables[db->table_count++];
     strcpy(table->name, input_name);
     for (int i = 0; i < MAX_COLS; i++) {
         table->columns[i] = NULL;
     }
+    return table;
 }
 
 void initialize_columns(Table *table, enum col_type col_type, char input_name[50]) {
@@ -82,7 +84,7 @@ void insert_row(Table *table, char input_string[4096]) {
                     break;
                 default:
                     printf("Error: Unknown Datatype!\n");
-                    exit(1);
+                    return;
             }
             
         }

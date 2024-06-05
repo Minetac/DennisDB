@@ -1,12 +1,37 @@
 #include "input_processing.h"
 #include "database.h"
+#include "data_structures.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
 
-#define STRING_LENGTH 255
+
 #define MAX_COLS 10
+
+int find_table_id(Database *db, char *input_table_name) {
+    for (int i = 0; i < MAX_TABLES; i++) {
+        if (strlen(db->tables[i]->name) <= 0) continue;
+        if (strncasecmp(input_table_name, db->tables[i]->name, strlen(db->tables[i]->name)) == 0) {
+            //printf("Matches! \n");
+            return i;
+        }
+    }
+        
+    return -1;
+}
+
+void remove_first_n_chars(char *str, int n) {
+    int len = strlen(str);
+    if (n > len) str[0] = '\0';
+    else {
+        for (int i = 0; i < len - n; i++) {
+            str[i] = str[i + n];
+        }
+        // Nullterminierung des Strings
+        str[len - n] = '\0';
+    }
+}
 
 void trim(char *str) {
     int start = 0;
@@ -95,4 +120,29 @@ int is_float(const char *str) {
     strtof(str, &endptr);
     // Überprüfen, ob das gesamte String in eine Gleitkommazahl umgewandelt wurde
     return *endptr == '\0';
+}
+
+void space_to_underscore(char *str) {
+    //printf("Old String: %s\n", str);
+    int start = 0;
+    int end = strlen(str) - 1;
+
+    while (str[start] != '\0' && start < end) {
+        if (isspace((unsigned char)str[start])) str[start] = '_';
+        start++;
+    }
+    //printf("New String: %s\n", str);
+}
+
+
+void add_beginning_char(char *str, char ch) {
+    int len = strlen(str);
+    memmove(str + 1, str, len + 1);
+    str[0] = ch;
+}
+
+void add_ending_char(char *str, char ch) {
+    int len = strlen(str);
+    str[len] = ch;
+    str[len + 1] = '\0';
 }

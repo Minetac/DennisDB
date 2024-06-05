@@ -5,13 +5,17 @@
 
 #define MAX_ROWS 1000
 #define MAX_COLS 10
+#define MAX_TABLES 10
 #define STRING_LENGTH 255
+#define INPUT_SIZE 4096
+
 
 enum col_type {
     INT_TYPE,
-    STRING_TYPE,
-    FLOAT_TYPE
+    FLOAT_TYPE,
+    STRING_TYPE
 };
+
 
 enum print_pos {
     LEFT_SIDE, MIDDLE, RIGHT_SIDE
@@ -37,7 +41,8 @@ typedef struct {
 typedef struct {
     int id;
     char name[50];
-    Table *tables[10];
+    Table *tables[MAX_TABLES];
+    int table_count;
 } Database;
 
 void print_col_type(enum col_type type);
