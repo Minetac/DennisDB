@@ -1,6 +1,7 @@
 #include "data_structures.h"
 #include <stdio.h>
 
+
 void print_col_type(enum col_type type) {
     switch(type) {
         case INT_TYPE:

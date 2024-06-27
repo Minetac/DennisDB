@@ -7,7 +7,7 @@
 #include <string.h>
 
 void save_to_file(Database *db) {
-    FILE *file = fopen("C:\\Code\\DennisDB\\database.dennisDB", "w");
+    FILE *file = fopen("database.dennisDB", "w");
 
     if (file == NULL) {
         printf("Fehler beim Öffnen der Datei\n");
@@ -52,7 +52,7 @@ void save_to_file(Database *db) {
 
 
 void read_from_file(Database *db) {
-    FILE *file = fopen("C:\\Code\\DennisDB\\database.dennisDB", "r");
+    FILE *file = fopen("database.dennisDB", "r");
     if (file == NULL) {
         printf("Fehler beim Öffnen der Datei\n");
         return;

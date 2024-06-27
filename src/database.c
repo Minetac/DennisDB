@@ -11,9 +11,10 @@
 Database init_database(int input_id, char input_name[50]) {
     Database db;
 
-    strcpy_s(db.name, sizeof(db.name), input_name);
+    db.table_count = 0;
+    strcpy(db.name, input_name);
     db.id = input_id;
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < MAX_TABLES; i++) {
         db.tables[i] = (Table *) malloc(sizeof(Table));
         db.tables[i]->id = i;
         strcpy(db.tables[i]->name, "");
@@ -34,7 +35,6 @@ Table *initialize_table(Database *db, char input_name[50]) {
 }
 
 void initialize_columns(Table *table, enum col_type col_type, char input_name[50]) {
-    printf("%d", table->column_count);
     if (table->column_count < MAX_COLS) {
         // Allocate Memory for Column Pointer
         table->columns[table->column_count] = (Column *) malloc(sizeof(Column));
@@ -43,14 +43,14 @@ void initialize_columns(Table *table, enum col_type col_type, char input_name[50
         if (col_type == INT_TYPE) {
             table->columns[table->column_count]->datatype = INT_TYPE;
             table->columns[table->column_count]->data = (int *) malloc(sizeof(int) * MAX_ROWS);
-            
+
         } else if (col_type == STRING_TYPE) {
             table->columns[table->column_count]->datatype = STRING_TYPE;
             table->columns[table->column_count]->data = (char **) malloc(MAX_ROWS * sizeof(char *));
             for (int i = 0; i < MAX_ROWS; i++) {
                 ((char **)table->columns[table->column_count]->data)[i] = malloc(STRING_LENGTH * sizeof(char));
             }
-            
+
         } else if (col_type == FLOAT_TYPE) {
             table->columns[table->column_count]->datatype = FLOAT_TYPE;
             table->columns[table->column_count]->data = (float *) malloc(sizeof(float) * MAX_ROWS);
@@ -63,7 +63,7 @@ void initialize_columns(Table *table, enum col_type col_type, char input_name[50
 }
 
 
-void insert_row(Table *table, char input_string[4096]) {
+void insert_row(Table *table, char input_string[INPUT_SIZE]) {
     if (table->row_count < MAX_ROWS) {
         int check = compare_input_with_table(table, input_string);
         if (!check) exit(1);
@@ -86,18 +86,16 @@ void insert_row(Table *table, char input_string[4096]) {
                     printf("Error: Unknown Datatype!\n");
                     return;
             }
-            
         }
-
+        //printf("Line Nr. %d added.\n", table->row_count);
         table->row_count++;
-        
     } else {
         printf("Table is full. Cannot insert row.\n");
     }
 }
 
 void free_data(Database *db) {
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < MAX_TABLES; i++) {
         for (int j = 0; j < db->tables[i]->column_count; j++) {
             free(db->tables[i]->columns[j]->data);
             free(db->tables[i]->columns[j]);
@@ -107,6 +105,14 @@ void free_data(Database *db) {
     // free(db->tables);
 }
 
+void print_table_list(Database *db) {
+    int ids[10];
+    for (int i = 0; i < MAX_TABLES; i++) {
+        if (strlen(db->tables[i]->name) == 0) continue;
+        printf("ID: %d, Name: %s\n", db->tables[i]->id, db->tables[i]->name);
+    }
+}
+
 void print_table(Table *table) {
     printf("Table: %s\n", table->name);
     printf("|");
@@ -114,7 +120,7 @@ void print_table(Table *table) {
         print_padded_string(table->columns[c]->name, table->columns[c]->col_width, MIDDLE);
     }
     printf("\n");
-    
+
     for (int r = 0; r < table->row_count; r++) {
         printf("|");
         for (int i = 0; i < table->column_count; i++) {

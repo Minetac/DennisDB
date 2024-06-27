@@ -9,7 +9,6 @@
 #define STRING_LENGTH 255
 #define INPUT_SIZE 4096
 
-
 enum col_type {
     INT_TYPE,
     FLOAT_TYPE,
