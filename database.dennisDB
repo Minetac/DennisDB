@@ -1,8 +1,8 @@
 Table: M_Kunden
 INT_id, STRING_nachname, STRING_vorname, INT_alter
 0, 'Stoermer', 'Dennis', 23
-1, 'Stoermer', 'Jan', 23
-2, 'Stoermer', 'Frank', 57
+1, 'Schmidt', 'Florian', 23
+2, 'Thom', 'Alexander', 57
 4, 'Mueller', 'Anna', 25
 5, 'Schmidt', 'Michael', 35
 6, 'Wagner', 'Julia', 42
