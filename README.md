@@ -4,6 +4,7 @@ Build the program by using the following commands:
 
 ```
 git clone https://github.com/minetac/dennisdb
+cd dennisdb
 make
 .\build\main.exe
 ```
