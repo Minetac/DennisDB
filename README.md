@@ -3,7 +3,7 @@ Simple Array-Based-In-Memory-Database written in C
 Build the program by using the following commands:
 
 ```
-git clone https://github.com/SanderMertens/bake
+git clone https://github.com/minetac/dennisdb
 make
 .\build\main.exe
 ```
