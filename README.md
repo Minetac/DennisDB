@@ -1,9 +1,11 @@
 Simple Array-Based-In-Memory-Database written in C
 
-Build the program by using the following commands:
+You can use the LOAD Command to load in the *M_Kunden* Table with example Data
 
+Build the program by using the following commands:
 ```
 git clone https://github.com/minetac/dennisdb
+cd dennisdb
 make
 .\build\main.exe
 ```
